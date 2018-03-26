@@ -13,11 +13,8 @@ let {{&className}} = (function(){
     'use strict';
 
     function {{&className}}(options){
-        let domain = (typeof options === 'object') ? options.domain : options;
-        this.domain = domain ? domain : '{{&domain}}';
-        if(this.domain.length === 0) {
-            throw new Error('Domain parameter must be specified as a string.');
-        }
+        let domain = ''
+       
         {{#isSecure}}
             {{#isSecureToken}}
                 this.token = (typeof options === 'object') ? (options.token ? options.token : {}) : {};
@@ -162,4 +159,4 @@ let {{&className}} = (function(){
     return {{&className}};
 })();
 
-exports.{{&className}} = {{&className}};
+export default {{&className}};

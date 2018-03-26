@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 /*global fetch, btoa */
-import Q from 'q';
+// import Q from 'q';
+import axios from 'axios'
 /**
  * {{&description}}
  * @class {{&className}}
@@ -64,7 +65,7 @@ let {{&className}} = (function(){
       * @param {object} form - form data object
       * @param {object} deferred - promise object
       */
-    {{&className}}.prototype.request = function(method, url, parameters, body, headers, queryParameters, form, deferred){
+    {{&className}}.prototype.request = function(method, url, parameters, body, headers, queryParameters, form){
         const queryParams = queryParameters && Object.keys(queryParameters).length ? serializeQueryParams(queryParameters) : null ;
         const urlWithParams = url + (queryParams ? '?' + queryParams : '');
 
@@ -72,16 +73,10 @@ let {{&className}} = (function(){
             body = undefined;
         }
 
-        fetch(urlWithParams, {
+        return axios(urlWithParams, {
             method,
             headers,
-            body: JSON.stringify(body)
-        }).then((response) => {
-            return response.json();
-        }).then((body) => {
-            deferred.resolve(body);
-        }).catch((error) => {
-            deferred.reject(error);
+            data: JSON.stringify(body)
         });
     };
 
